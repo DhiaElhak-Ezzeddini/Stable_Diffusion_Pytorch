@@ -74,7 +74,7 @@ class VAE_Encoder(nn.Sequential) :
         log_var = torch.clamp(log_var , -30 , 20)
         var = log_var.exp()
         std = var.sqrt()
-        # Z = N(0,1) -> X = N(mean , var) ? 
+        # Z = N(0,1) -> X = N(mean , std) ? 
         # X = mean + std*Z
         x = mean + std * noise
         # scaling by a constant
