@@ -1,6 +1,6 @@
 import torch 
 import numpy as np
-import math  
+import math 
 
 class DDPMSampler : 
     def __init__(self,generator:torch.Generator , num_training_steps:int=1000 , beta_start:float=0.00085,beta_end:float=0.0120) : 
