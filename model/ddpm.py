@@ -9,7 +9,9 @@ class DDPMSampler :
         self.alphas = 1.0 - self.betas
         self.alpha_cumprod = torch.cumprod(self.alphas , dim=0) # [alpha_0 , alpha_0 * alpha_1 , .....]
         self.one = torch.tensor(1.0)
+        
         self.generator = generator 
+        
         self.num_training_steps = num_training_steps
         self.timesteps = torch.from_numpy(np.arange(0,num_training_steps)[::-1].copy())
         
@@ -37,7 +39,7 @@ class DDPMSampler :
         
         return variance
     
-    def set_strength(self,strength=1) : 
+    def set_strength(self,strength=1) : ## defines how much noise to add to the original image 
         start_step = self.num_inference_steps - int(self.num_inference_steps * strength)
         self.timesteps = self.timesteps[start_step:]
         self.start_step = start_step
@@ -62,11 +64,12 @@ class DDPMSampler :
         current_sample_coeff = current_alpha_t**(0.5) * beta_prod_t_prev / beta_prod_t
         ## the mean of the predicted previous sample
         pred_prev_sample = pred_original_sample * pred_original_sample_coeff + latents * current_sample_coeff
+        ## add noise
         variance = 0 
         if t > 0 : 
             device = model_output.device
             noise = torch.randn(model_output.shape,generator=self.generator,device=device,dtype=model_output.dtype)
-            variance = (self._get_variance(t) **(0.5)) * noise
+            variance = (self._get_variance(t) **(0.5)) * noise ## formula 7 
         ## N(0,1) ==> N(mu,sigma^2)
         ## X = mu + sigma * Z /// Z ~ N(0,1) (in our case Z is the noise)
         pred_prev_sample = pred_prev_sample + variance
