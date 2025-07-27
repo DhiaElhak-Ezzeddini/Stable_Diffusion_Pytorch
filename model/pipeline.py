@@ -20,7 +20,7 @@ def generate(prompt,
              seed=None,
              device=None,
              idle_device=None,
-             tokenizer=None) :
+             tokenizer=None):
     ## strength : how much we want to pay attention to the input image
     with torch.no_grad():
         if not (0 < strength < 1) : 
