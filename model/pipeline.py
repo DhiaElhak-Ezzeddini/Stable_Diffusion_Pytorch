@@ -87,6 +87,7 @@ def generate(prompt,
             input_image_tensor = input_image_tensor.unsqueeze(0) ## add the batch dimension
             # (batch_size,height , width , channel=3) -> (batch_size,channel,height,width )
             input_image_tensor = input_image_tensor.permute(0,3,1,2)
+            input_image_tensor = input_image_tensor.to(device)
             encoder_noise = torch.randn(latents_shape,generator=generator,device=device)
             latents = encoder(input_image_tensor , encoder_noise)
             
