@@ -88,7 +88,7 @@ def generate(prompt,
             # (batch_size,height , width , channel=3) -> (batch_size,channel,height,width )
             input_image_tensor = input_image_tensor.permute(0,3,1,2)
             encoder_noise = torch.randn(latents_shape,generator=generator,device=device)
-            latents = encoder(input_image_tensor , encoder_noise)
+            latents = encoder(input_image_tensor.to(device) , encoder_noise.to(device))
             
             sampler.set_strength(strength=strength)
             latents = sampler.add_noise(latents,sampler.timesteps[0])        
