@@ -80,14 +80,13 @@ def generate(prompt,
             input_image_tensor = input_image.resize((WIDTH,HEIGHt))
             input_image_tensor = np.array(input_image_tensor) 
             # (height , width , channel=3)
-            input_image_tensor = torch.tensor(input_image_tensor,dtype=torch.float32)
+            input_image_tensor = torch.tensor(input_image_tensor,dtype=torch.float32,device=device)
 
             input_image_tensor = rescale(input_image_tensor , (0,255) , (-1 , 1))
             # (height , width , channel=3) -> (batch_size,height , width , channel=3)
             input_image_tensor = input_image_tensor.unsqueeze(0) ## add the batch dimension
             # (batch_size,height , width , channel=3) -> (batch_size,channel,height,width )
             input_image_tensor = input_image_tensor.permute(0,3,1,2)
-            input_image_tensor = input_image_tensor.to(device)
             encoder_noise = torch.randn(latents_shape,generator=generator,device=device)
             latents = encoder(input_image_tensor , encoder_noise)
             
