@@ -65,13 +65,13 @@ class UNET_AttentionBlock(nn.Module):
         ## Normalization + self attention
         resid_2 = x 
         x = self.layernorm_1(x)
-        self.attention_1(x)
+        x = self.attention_1(x)
         x += resid_2
         resid_2 = x 
         
         # Normalization + cross attention
         x = self.layernorm_2(x)
-        self.attention_2(x,context) ## (cross attention between the prompt and the image)
+        x = self.attention_2(x,context) ## (cross attention between the prompt and the image)
         x += resid_2
         
         resid_2 = x 
