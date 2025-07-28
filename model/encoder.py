@@ -58,7 +58,7 @@ class VAE_Encoder(nn.Sequential) :
         )
          
         
-    def forward(self,x:torch.Tensor,noise:torch.Tensor) -> torch.Tensor:
+    def forward(self,x,noise) :
         # x     : (batch_size , channels , height , width)
         # noise : (batch_size , 4 , height/8 , width/8)
         
