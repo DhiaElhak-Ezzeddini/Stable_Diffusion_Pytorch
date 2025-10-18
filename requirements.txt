@@ -1,0 +1,20 @@
+# Core deep-learning libraries
+torch>=2.0.0
+torchvision>=0.15.0
+torchaudio>=2.0.0
+
+# Numerical & image processing
+numpy>=1.24.0
+Pillow>=9.5.0
+
+# For text-to-image prompts, tokenizers etc.
+regex>=2023.5.5
+
+# Progress bars & utilities
+tqdm>=4.65.0
+
+# Optional GPU / performance related (if using CUDA etc.)
+# cudatoolkit>=11.7  # if using conda environment and appropriate CUDA version
+
+# Optional: for saving/serialization and CLI
+joblib>=1.3.0
